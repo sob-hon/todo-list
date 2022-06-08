@@ -1,0 +1,42 @@
+.headerText {
+  margin-top: 5px;
+  margin-bottom: 25px;
+  z-index: 12;
+}
+
+.inputSection{
+  margin-bottom: 25px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+.password {
+  width: 100%;
+  display: block;
+  transition: 0.3s ease all;
+}
+
+.password:focus + .inputLabel {
+  transform: translateY(-60px) TranslateX(-10px);
+  color: #EF5252;
+}
+.password:valid + .inputLabel {
+  color: #EF5252;
+  transform: translateY(-60px) TranslateX(-10px);
+}
+
+.emailAddress {
+  width: 100%;
+  display: block;
+  transition: 0.3s ease all;
+}
+
+.emailAddress:focus + .inputLabel {
+  transform: translateY(-60px) TranslateX(-10px);
+  color: #EF5252;
+}
+.emailAddress:valid + .inputLabel {
+  transform: translateY(-60px) TranslateX(-10px);
+  color: #EF5252;
+}
