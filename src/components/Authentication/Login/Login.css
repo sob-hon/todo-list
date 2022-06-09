@@ -26,6 +26,7 @@
   transform: translateY(-60px) TranslateX(-10px);
 }
 
+
 .emailAddress {
   width: 100%;
   display: block;
@@ -37,6 +38,6 @@
   color: #EF5252;
 }
 .emailAddress:valid + .inputLabel {
-  transform: translateY(-60px) TranslateX(-10px);
   color: #EF5252;
+  transform: translateY(-60px) TranslateX(-10px);
 }

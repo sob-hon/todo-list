@@ -33,11 +33,6 @@ const Authentication = () => {
       <div className="formBody">
         {registerState === "Register" ? <Register /> : <Login />}
       </div>
-      <div className="formFooter">
-        <button className="saveForm">
-          {registerState === "Register" ? "Submit" : "Login"}{" "}
-        </button>
-      </div>
     </div>
   );
 };
