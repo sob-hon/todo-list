@@ -50,18 +50,35 @@ const TodoList = ({
   const [checked, setChecked] = React.useState([0]);
   const context = useUserInfo();
 
-  const handleToggle = (value, inx) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-    completeTodo(inx);
+  const handleToggle = (todo) => {
+    axios
+      .patch(
+        `http://185.126.200.101:4005/tasks/${todo._id}`,
+        {
+          description: todo.description,
+          completed: !todo.completed,
+        },
+        {
+          headers: {
+            Authorization: context.userInfo.token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        let editedTask = todos.map((todo) => {
+          if (todo._id === res.data._id) {
+            return {
+              description: res.data.description,
+              completed: res.data.completed,
+              _id: res.data._id,
+            };
+          } else {
+            return todo;
+          }
+        });
+        setTodos(editedTask);
+      });
   };
 
   return (
@@ -163,11 +180,11 @@ const TodoList = ({
                   <Checkbox
                     color="primary"
                     edge="start"
-                    checked={checked.indexOf(todo) !== -1}
+                    checked={todo.completed}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ "aria-labelledby": labelId }}
-                    onClick={handleToggle(todo)}
+                    onClick={() => handleToggle(todo)}
                     onKeyPress={preventSubmit}
                   />
                 </ListItemIcon>
