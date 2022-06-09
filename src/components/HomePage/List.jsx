@@ -9,7 +9,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -35,11 +34,7 @@ const TodoList = ({
   theme,
   todos,
   setTodos,
-  completeTodo,
-  editTodo,
   deleteTodo,
-  saveTodo,
-  noteRef,
   preventSubmit,
   open,
   setOpen,
@@ -47,9 +42,7 @@ const TodoList = ({
   setSelectedRow,
 }) => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState([0]);
   const context = useUserInfo();
-
   const handleToggle = (todo) => {
     axios
       .patch(
@@ -101,8 +94,10 @@ const TodoList = ({
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      To subscribe to this website, please enter your email
-                      address here. We will send updates occasionally.
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ipsa cum sequi, aspernatur et ratione, facere laborum
+                      molestiae laboriosam eius eum perferendis ex placeat? Ipsa
+                      amet tenetur blanditiis quae cupiditate eum!
                     </DialogContentText>
                     <TextField
                       autoFocus

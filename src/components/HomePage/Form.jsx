@@ -17,7 +17,6 @@ const Form = () => {
   const [newTodo, setNewTodo] = useState({});
   const [todos, setTodos] = useState([]);
   const inputRef = useRef();
-  const noteRef = useRef({});
   const [isInputEmpty, setInputEmpty] = useState(false);
   const [newTaskData, setNewTaskData] = useState("");
   const [open, setOpen] = useState(false);
@@ -74,17 +73,12 @@ const Form = () => {
           setTodos([...todos, { ...response.data, isEditing: false }]);
           setNewTaskData("");
         });
-
-      // const newTodos = [...todos, { newTaskData }];
-      // console.log(newTodos);
-      // setNewTodo({});
-      // setTodos(newTodos);
     } else {
       setInputEmpty(true);
     }
   };
 
-  const removeTodo = (todo) => {
+  const deleteTodo = (todo) => {
     axios
       .delete(`http://185.126.200.101:4005/tasks/${todo._id}`, {
         headers: {
@@ -95,28 +89,6 @@ const Form = () => {
         const newTodos = todos.filter((t) => t._id !== todo._id);
         setTodos(newTodos);
       });
-  };
-
-  const completeTodo = (inx) => {
-    const newTodos = [...todos];
-    newTodos[inx].isCompleted = !newTodos[inx].isCompleted;
-    setTodos(newTodos);
-  };
-
-  const editTodo = (todo) => {
-    let newTodos = [...todos];
-    // newTodos[inx].isEditing = !newTodos[inx].isEditing;
-    newTodos = newTodos.map((item) => {
-      return item._id === todo._id ? { ...item, isEditing: true } : item;
-    });
-    setTodos(newTodos);
-  };
-
-  const saveTodo = (todo) => {
-    const newTodos = [...todos];
-    newTodos[todo].isEditing = !newTodos[todo].isEditing;
-    newTodos[todo].text = noteRef.current[todo].value;
-    setTodos(newTodos);
   };
 
   const clearInput = () => {
@@ -149,11 +121,7 @@ const Form = () => {
             theme={theme}
             todos={todos}
             setTodos={setTodos}
-            completeTodo={completeTodo}
-            editTodo={editTodo}
-            deleteTodo={removeTodo}
-            saveTodo={saveTodo}
-            noteRef={noteRef}
+            deleteTodo={deleteTodo}
             preventSubmit={preventSubmit}
             setSelectedRow={setSelectedRow}
             setOpen={setOpen}
