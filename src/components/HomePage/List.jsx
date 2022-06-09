@@ -34,7 +34,8 @@ const TodoList = ({
 }) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
-  let UniqKey = 123;
+
+  
 
   const handleToggle = (value, inx) => () => {
     const currentIndex = checked.indexOf(value);
@@ -58,7 +59,7 @@ const TodoList = ({
 
           return (
             <ListItem
-              key={`todo-${UniqKey++}`}
+              key={todo.id}
               role={undefined}
               dense
               button
@@ -80,7 +81,7 @@ const TodoList = ({
                 <>
                   <ListItemText
                     id={labelId}
-                    primary={`${todo.text}`}
+                    primary={`${todo.description}`}
                     style={{
                       textDecoration: todo.isCompleted ? "line-through" : "",
                     }}
@@ -89,7 +90,7 @@ const TodoList = ({
                     <IconButton
                       edge="end"
                       aria-label="edit"
-                      onClick={() => editTodo(inx)}
+                      onClick={() => editTodo(todo)}
                     >
                       <EditIcon />
                     </IconButton>
@@ -101,18 +102,18 @@ const TodoList = ({
                     htmlFor="task" // better accessibility with HTML
                     className="visuallyhidden"
                   >
-                    {todo.text}
+                    {todo.description}
                   </label>
                   <input
                     className="form__edit-input"
-                    defaultValue={todo.text}
+                    defaultValue={todo.description}
                     ref={(element) => (noteRef.current[inx] = element)}
                     onKeyPress={preventSubmit}
                     id="task"
                   />
                   <ListItemIcon>
                     <IconButton
-                      onClick={() => saveTodo(inx)}
+                      onClick={() => saveTodo(todo)}
                       edge="end"
                       aria-label="delete"
                     >
@@ -123,7 +124,7 @@ const TodoList = ({
               )}
               <ListItemSecondaryAction>
                 <IconButton
-                  onClick={() => deleteTodo(inx)}
+                  onClick={() => deleteTodo(todo)}
                   edge="end"
                   aria-label="delete"
                 >

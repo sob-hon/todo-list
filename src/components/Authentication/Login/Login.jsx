@@ -2,7 +2,7 @@ import { useRef } from "react";
 import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useUserInfo } from './../../../hooks/UseUserInfo';
+import { useUserInfo } from "./../../../hooks/UseUserInfo";
 
 const Login = () => {
   const emailRef = useRef();
@@ -22,7 +22,7 @@ const Login = () => {
           token: res.data.token,
           userData: res.data.user,
         });
-        localStorage.setItem("token", JSON.stringify(res.data.token));
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem("UserData", JSON.stringify(res.data.user));
         navigate("/homepage");
       })
