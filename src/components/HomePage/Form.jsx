@@ -20,6 +20,8 @@ const Form = () => {
   const noteRef = useRef({});
   const [isInputEmpty, setInputEmpty] = useState(false);
   const [newTaskData, setNewTaskData] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const getAllTodos = () => {
     axios
@@ -69,7 +71,7 @@ const Form = () => {
           }
         )
         .then((response) => {
-          setTodos([...todos, response.data]);
+          setTodos([...todos, { ...response.data, isEditing: false }]);
           setNewTaskData("");
         });
 
@@ -101,16 +103,19 @@ const Form = () => {
     setTodos(newTodos);
   };
 
-  const editTodo = (inx) => {
-    const newTodos = [...todos];
-    newTodos[inx].isEditing = !newTodos[inx].isEditing;
+  const editTodo = (todo) => {
+    let newTodos = [...todos];
+    // newTodos[inx].isEditing = !newTodos[inx].isEditing;
+    newTodos = newTodos.map((item) => {
+      return item._id === todo._id ? { ...item, isEditing: true } : item;
+    });
     setTodos(newTodos);
   };
 
-  const saveTodo = (inx) => {
+  const saveTodo = (todo) => {
     const newTodos = [...todos];
-    newTodos[inx].isEditing = !newTodos[inx].isEditing;
-    newTodos[inx].text = noteRef.current[inx].value;
+    newTodos[todo].isEditing = !newTodos[todo].isEditing;
+    newTodos[todo].text = noteRef.current[todo].value;
     setTodos(newTodos);
   };
 
@@ -143,12 +148,17 @@ const Form = () => {
           <TodoList
             theme={theme}
             todos={todos}
+            setTodos={setTodos}
             completeTodo={completeTodo}
             editTodo={editTodo}
             deleteTodo={removeTodo}
             saveTodo={saveTodo}
             noteRef={noteRef}
             preventSubmit={preventSubmit}
+            setSelectedRow={setSelectedRow}
+            setOpen={setOpen}
+            open={open}
+            selectedRow={selectedRow}
           />
         </form>
       </div>
