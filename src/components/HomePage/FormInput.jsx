@@ -28,6 +28,8 @@ const TodoCreator = ({
   inputRef,
   isInputEmpty,
   preventSubmit,
+  setNewTaskData,
+  newTaskData,
 }) => {
   const classes = useStyles();
 
@@ -38,9 +40,9 @@ const TodoCreator = ({
           <TextField
             id="outlined-basic"
             label="What's need to be done?" // better accessibility with Material UI
-            value={todo}
+            value={newTaskData}
             variant="outlined"
-            onChange={(e) => setTodo(e.target.value)}
+            onChange={(e) => setNewTaskData(e.target.value)}
             onFocus={clearInput}
             ref={inputRef}
             aria-describedby="component-error-text"

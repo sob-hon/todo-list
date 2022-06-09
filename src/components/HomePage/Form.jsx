@@ -19,6 +19,7 @@ const Form = () => {
   const inputRef = useRef();
   const noteRef = useRef({});
   const [isInputEmpty, setInputEmpty] = useState(false);
+  const [newTaskData, setNewTaskData] = useState("");
 
   const getAllTodos = () => {
     axios
@@ -54,23 +55,29 @@ const Form = () => {
     }
   };
 
-  const addTodo = (text) => {
-    if (text !== "") {
-      axios.create(
-        "http://185.126.200.101:4005/tasks",
-        { description: text, completed: false },
-        {
-          headers: {
-            Authorization: context.userInfo.token,
-          },
-        }
-      );
-      const newTodos = [...todos, { description: text, isEditing: false }];
-      console.log(newTodos);
-      setNewTodo({});
-      setTodos(newTodos);
+  const addTodo = () => {
+    if (newTaskData !== "") {
+      console.log("hello");
+      axios
+        .post(
+          "http://185.126.200.101:4005/tasks",
+          { description: newTaskData, completed: false },
+          {
+            headers: {
+              Authorization: context.userInfo.token,
+            },
+          }
+        )
+        .then((response) => {
+          setTodos([...todos, response.data]);
+          setNewTaskData("");
+        });
+
+      // const newTodos = [...todos, { newTaskData }];
+      // console.log(newTodos);
+      // setNewTodo({});
+      // setTodos(newTodos);
     } else {
-      console.log("text", text);
       setInputEmpty(true);
     }
   };
@@ -108,7 +115,7 @@ const Form = () => {
   };
 
   const clearInput = () => {
-    setNewTodo({});
+    setNewTodo("");
   };
 
   const setTodo = (todo) => {
@@ -129,6 +136,8 @@ const Form = () => {
             inputRef={inputRef}
             isInputEmpty={isInputEmpty}
             preventSubmit={preventSubmit}
+            setNewTaskData={setNewTaskData}
+            newTaskData={newTaskData}
           />
 
           <TodoList
