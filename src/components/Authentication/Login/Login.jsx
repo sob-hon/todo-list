@@ -2,7 +2,7 @@ import { useRef } from "react";
 import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useUserInfo } from "../../../App";
+import { useUserInfo } from './../../../hooks/UseUserInfo';
 
 const Login = () => {
   const emailRef = useRef();

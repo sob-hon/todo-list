@@ -11,7 +11,6 @@ const theme = createTheme({
 });
 
 const Form = () => {
-  let token = localStorage.getItem("token");
 
   const [newTodo, setNewTodo] = useState("");
   const [todos, setTodos] = useState([
