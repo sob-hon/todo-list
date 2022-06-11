@@ -11,12 +11,12 @@ const Login = () => {
   const context = useUserInfo();
 
   const LoginBtnClickedHandler = () => {
-    const headers = {
+    const body = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
     axios
-      .post("http://185.126.200.101:4005/users/login", headers)
+      .post("http://185.126.200.101:4005/users/login", body)
       .then((res) => {
         context.setUserInfo({
           token: res.data.token,
