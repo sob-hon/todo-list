@@ -3,14 +3,20 @@ import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUserInfo } from "./../../../hooks/UseUserInfo";
+import useAxios from "../../../hooks/UseAxios";
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
   const context = useUserInfo();
+  const { response } = useAxios({
+    method: "get",
+    url: "/todos",
+  });
 
   const LoginBtnClickedHandler = () => {
+    console.log(response);
     const body = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
